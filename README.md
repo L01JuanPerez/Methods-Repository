@@ -1,6 +1,7 @@
 # Methods-Repository
 Commands for Sp9 Protein 
 
+  Lab 5
 ```bash 
 ncbi-acc-download -F fasta -m protein XP_032240311.1
 blastp -db allprotein.fas -query XP_032240311.1.fa -outfmt 0 -max_hsps 1 -out Sp9.blastp.typical.out
