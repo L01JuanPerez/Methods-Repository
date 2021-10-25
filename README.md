@@ -34,3 +34,36 @@ iqtree -s Sp9.blastp.detail.filtered.aligned_.fas -nt 2
 gotree reroot midpoint -i Sp9.blastp.detail.filtered.aligned_.fas.treefile -o Sp9.blastp.detail.filtered.aligned_.fas.midpoint.treefile
 #This program reroots the phylogeny tree to the midpoint. 
 ```
+
+Lab 7
+```bash 
+java -jar ~/tools/Notung-3.0-beta/Notung-3.0-beta.jar -s speciesTreeBilateriaCnidaria.tre -g Sp9.genes.tre --reconcile --speciestag prefix --savepng --events
+#Notung will reconcile the given species tree and the midpoint rooted tree performed with gotree.
+
+python2.7 ~/tools/recPhyloXML/python/NOTUNGtoRecPhyloXML.py -g Sp9.genes.tre.reconciled --include.species
+thirdkind -f Sp9.genes.tre.reconciled.xml -o Sp9.genes.tre.genes.tre.reconciled.svg
+#Use python2.7 to reformat the reconciled tree to PecPhyloXML, which thirdkind is able to view. 
+
+java -jar ~/tools/Notung-3.0-beta/Notung-3.0-beta.jar -s speciesTreeBilateriaCnidaria.tre -g Sp9.genes.tre --root --speciestag prefix --savepng --events
+#Rerooting the Notung-3.0 allows us to use the command flag ---root that will minimize all duplications and deletions. A tree with minimals duplication and deletions are believed to be better representations of the phylogeny tree. 
+
+iqtree -s Sp9.blastp.detail.filtered.aligned_.fas -bb 1000 -nt 2 -m PMB+F+R5 -t Sp9.genes.tre -pre sp9.gene.tree.ufboot
+#Bootstrap represent the score of a particular branch, meaning how likely it is to be correct. 
+
+gotree reroot midpoint -i sp9.gene.tree.ufboot.treefile -o sp9.gene.tree.midpoint.ufboot.treefile
+#This command rerrots the tree with the boostrap support obtained with the command flag -bb 1000. 
+
+java -jar ~/tools/Notung-3.0-beta/Notung-3.0-beta.jar -s speciesTreeBilateriaCnidaria.tre -g Sp9.genes.midpoint.ufboot --root --speciestag prefix --savepng --events
+#Reconciles the gene and species tree with the bootsrap support while minimizing deletion and duplication events. 
+```
+
+
+
+
+
+
+
+
+
+
+
