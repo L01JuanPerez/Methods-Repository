@@ -57,6 +57,20 @@ java -jar ~/tools/Notung-3.0-beta/Notung-3.0-beta.jar -s speciesTreeBilateriaCni
 #Reconciles the gene and species tree with the bootsrap support while minimizing deletion and duplication events. 
 ```
 
+Lab 8
+```bash
+    iprscan5   --email juane.pereznunez@stonybrook.edu  --multifasta --useSeqId --sequence   Sp9.blastp.detail.filtered.fas
+#Uses the Interpro database to find the functional protein characteristics based on the nucleotide sequences. 
+
+cat ~/labs/lab8-L01JuanPerez/myfamily/*.tsv.tsv > ~/labs/lab8-L01JuanPerez/Sp9.domains.all.tsv
+#reconciles all output files from interproscan into one main file. 
+
+grep Pfam ~/labs/lab8-L01JuanPerez/Sp9.domains.all.tsv >  ~/labs/lab8-L01JuanPerez/Sp9.domains.pfam.tsv
+#Tool pfam allows us to find functional domains from the database. The command filters these domains depending on the functional protein charasteristics given by interproscan. 
+
+awk 'BEGIN{FS="\t"} {print $1"\t"$3"\t"$7"@"$8"@"$5}' ~/labs/lab8-L01JuanPerez/Sp9.domains.pfam.tsv | datamash -sW --group=1,2 collapse 3 | sed 's/,/\t/g' | sed 's/@/,/g' > ~/labs/lab8-L01JuanPerez/Sp9.domains.pfam.evol.tsv
+
+```
 
 
 
