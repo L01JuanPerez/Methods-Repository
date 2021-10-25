@@ -4,7 +4,11 @@ Commands for Sp9 Protein
   Lab 5
 ```bash 
 ncbi-acc-download -F fasta -m protein XP_032240311.1
+#Download the protein sequence for protein accession number XP_032240311.1 from the NCBI database. 
+
 blastp -db allprotein.fas -query XP_032240311.1.fa -outfmt 0 -max_hsps 1 -out Sp9.blastp.typical.out
+#use the Blastp tool to find homologs of Sp9
+
 blastp -db allprotein.fas -query XP_032240311.1.fa -outfmt "6 sseqid pident length mismatch gapopen evalue bitscore pident stitle"  -max_hsps 1 -out Sp9.blastp.detail.out
 awk '{if ($6<0.0000000000000000000000000000000000001)print $1 }' Sp9.blastp.detail.out > Sp9.blastp.detail.filtered.out
 wc -l Sp9.blastp.detail.filtered.out
@@ -13,3 +17,5 @@ t_coffee -other_pg seq_reformat -in Sp9.blastp.detail.filtered.aligned.fas -outp
 alv -k Sp9.blastp.detail.filtered.aligned.fas | less -r alv -kli --majority Sp9.blastp.detail.filtered.aligned.fas | less -RS
 t_coffee -other_pg seq_reformat -in Sp9.blastp.detail.filtered.aligned.fas -action +rm_gap 50 -out Sp9.blastp.detail.filtered.aligned.r50.fas alv -kli --majority Sp9.blastp.detail.filtered.aligned.r50.fas | less -RS
 ```
+
+Lab 6
